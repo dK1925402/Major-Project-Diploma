@@ -21,47 +21,113 @@ document.addEventListener('DOMContentLoaded', function() {
         }, false);
     });
 
+    // Function to update step indicators
+    function updateStepIndicator(activeStep) {
+        const steps = document.querySelectorAll('.step-indicator .step');
+        if (steps.length === 0) return;
+        
+        steps.forEach((step, index) => {
+            if (index + 1 === activeStep) {
+                step.classList.add('active');
+            } else {
+                step.classList.remove('active');
+            }
+        });
+    }
+
     // Common functions for showing/hiding containers
     window.showProgressContainer = function() {
-        document.getElementById('progress-container').style.display = 'block';
-        document.getElementById('url-form-container')?.style.display = 'none';
-        document.getElementById('upload-form-container')?.style.display = 'none';
-        document.getElementById('data-form-container')?.style.display = 'none';
-        document.getElementById('result-container').style.display = 'none';
-        document.getElementById('error-container').style.display = 'none';
+        if (document.getElementById('progress-container')) {
+            document.getElementById('progress-container').style.display = 'block';
+        }
+        
+        if (document.getElementById('url-form-container')) {
+            document.getElementById('url-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('upload-form-container')) {
+            document.getElementById('upload-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('data-form-container')) {
+            document.getElementById('data-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('result-container')) {
+            document.getElementById('result-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('error-container')) {
+            document.getElementById('error-container').style.display = 'none';
+        }
         
         // Update step indicators
         updateStepIndicator(2);
     };
 
     window.showResultContainer = function() {
-        document.getElementById('progress-container').style.display = 'none';
-        document.getElementById('url-form-container')?.style.display = 'none';
-        document.getElementById('upload-form-container')?.style.display = 'none';
-        document.getElementById('data-form-container')?.style.display = 'none';
-        document.getElementById('result-container').style.display = 'block';
-        document.getElementById('error-container').style.display = 'none';
+        if (document.getElementById('progress-container')) {
+            document.getElementById('progress-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('url-form-container')) {
+            document.getElementById('url-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('upload-form-container')) {
+            document.getElementById('upload-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('data-form-container')) {
+            document.getElementById('data-form-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('result-container')) {
+            document.getElementById('result-container').style.display = 'block';
+        }
+        
+        if (document.getElementById('error-container')) {
+            document.getElementById('error-container').style.display = 'none';
+        }
         
         // Update step indicators
         updateStepIndicator(3);
     };
 
     window.showErrorContainer = function(errorMessage) {
-        document.getElementById('progress-container').style.display = 'none';
-        document.getElementById('result-container').style.display = 'none';
-        document.getElementById('error-container').style.display = 'block';
+        if (document.getElementById('progress-container')) {
+            document.getElementById('progress-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('result-container')) {
+            document.getElementById('result-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('error-container')) {
+            document.getElementById('error-container').style.display = 'block';
+        }
         
         // Set error message
-        document.getElementById('error-message').textContent = errorMessage;
+        if (document.getElementById('error-message')) {
+            document.getElementById('error-message').textContent = errorMessage;
+        }
         
         // Reset step indicators
         updateStepIndicator(1);
     };
 
     window.resetFormContainer = function() {
-        document.getElementById('progress-container').style.display = 'none';
-        document.getElementById('result-container').style.display = 'none';
-        document.getElementById('error-container').style.display = 'none';
+        if (document.getElementById('progress-container')) {
+            document.getElementById('progress-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('result-container')) {
+            document.getElementById('result-container').style.display = 'none';
+        }
+        
+        if (document.getElementById('error-container')) {
+            document.getElementById('error-container').style.display = 'none';
+        }
         
         // Show the appropriate form container based on what's available
         if (document.getElementById('url-form-container')) {
@@ -83,44 +149,48 @@ document.addEventListener('DOMContentLoaded', function() {
         updateStepIndicator(1);
     };
 
-    // Function to update step indicators
-    function updateStepIndicator(activeStep) {
-        const steps = document.querySelectorAll('.step-indicator .step');
-        if (steps.length === 0) return;
-        
-        steps.forEach((step, index) => {
-            if (index + 1 === activeStep) {
-                step.classList.add('active');
-            } else {
-                step.classList.remove('active');
-            }
+    // Add click event listeners to common buttons
+    const tryAgainBtn = document.getElementById('try-again-btn');
+    if (tryAgainBtn) {
+        tryAgainBtn.addEventListener('click', function() {
+            window.resetFormContainer();
         });
     }
 
-    // Add click event listeners to common buttons
-    document.getElementById('try-again-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
+    const downloadAnotherBtn = document.getElementById('download-another-btn');
+    if (downloadAnotherBtn) {
+        downloadAnotherBtn.addEventListener('click', function() {
+            window.resetFormContainer();
+        });
+    }
 
-    document.getElementById('download-another-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
+    const convertAnotherBtn = document.getElementById('convert-another-btn');
+    if (convertAnotherBtn) {
+        convertAnotherBtn.addEventListener('click', function() {
+            window.resetFormContainer();
+        });
+    }
 
-    document.getElementById('convert-another-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
+    const mergeAnotherBtn = document.getElementById('merge-another-btn');
+    if (mergeAnotherBtn) {
+        mergeAnotherBtn.addEventListener('click', function() {
+            window.resetFormContainer();
+        });
+    }
 
-    document.getElementById('merge-another-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
+    const resizeAnotherBtn = document.getElementById('resize-another-btn');
+    if (resizeAnotherBtn) {
+        resizeAnotherBtn.addEventListener('click', function() {
+            window.resetFormContainer();
+        });
+    }
 
-    document.getElementById('resize-another-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
-
-    document.getElementById('generate-another-btn')?.addEventListener('click', function() {
-        window.resetFormContainer();
-    });
+    const generateAnotherBtn = document.getElementById('generate-another-btn');
+    if (generateAnotherBtn) {
+        generateAnotherBtn.addEventListener('click', function() {
+            window.resetFormContainer();
+        });
+    }
 
     // Humanize file size
     window.humanFileSize = function(bytes, decimals = 2) {
