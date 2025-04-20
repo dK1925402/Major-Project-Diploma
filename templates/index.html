@@ -1,0 +1,146 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="hero-section text-center">
+    <h1 class="display-4 fw-bold mb-4">ALL-in-One'r Utility Platform</h1>
+    <p class="lead mb-5">Your one-stop solution for media conversion, document manipulation, and more.</p>
+</div>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
+    <!-- Media Tools -->
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-video fa-3x"></i>
+                </div>
+                <h3 class="card-title">YouTube Downloader</h3>
+                <p class="card-text">Download YouTube videos in different quality formats (360p to 1080p).</p>
+                <a href="{{ url_for('youtube_downloader') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-music fa-3x"></i>
+                </div>
+                <h3 class="card-title">YouTube to MP3</h3>
+                <p class="card-text">Convert YouTube videos to MP3 audio format with high quality.</p>
+                <a href="{{ url_for('youtube_to_mp3') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fab fa-instagram fa-3x"></i>
+                </div>
+                <h3 class="card-title">Instagram Downloader</h3>
+                <p class="card-text">Download Instagram reels and videos easily.</p>
+                <a href="{{ url_for('instagram_downloader') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Document Tools -->
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-file-pdf fa-3x"></i>
+                </div>
+                <h3 class="card-title">PDF Merger</h3>
+                <p class="card-text">Merge multiple PDF files into a single document.</p>
+                <a href="{{ url_for('pdf_merger') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-images fa-3x"></i>
+                </div>
+                <h3 class="card-title">Image to PDF</h3>
+                <p class="card-text">Convert multiple images to a single PDF document.</p>
+                <a href="{{ url_for('image_to_pdf') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Image Tools -->
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-expand fa-3x"></i>
+                </div>
+                <h3 class="card-title">Image Resizer</h3>
+                <p class="card-text">Resize your images to specific dimensions.</p>
+                <a href="{{ url_for('image_resizer') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- QR Code Tool -->
+    <div class="col">
+        <div class="card h-100 tool-card">
+            <div class="card-body text-center">
+                <div class="tool-icon mb-3">
+                    <i class="fas fa-qrcode fa-3x"></i>
+                </div>
+                <h3 class="card-title">QR Code Generator</h3>
+                <p class="card-text">Generate QR codes for URLs, text, or contact information.</p>
+                <a href="{{ url_for('qr_generator') }}" class="btn btn-primary">Get Started</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="features-section py-5">
+    <div class="row align-items-center">
+        <div class="col-md-6">
+            <h2 class="mb-4">Why Choose ALL-in-One'r?</h2>
+            <ul class="feature-list">
+                <li><i class="fas fa-check-circle"></i> Fast and reliable conversion tools</li>
+                <li><i class="fas fa-check-circle"></i> User-friendly interface</li>
+                <li><i class="fas fa-check-circle"></i> No software installation required</li>
+                <li><i class="fas fa-check-circle"></i> Supports multiple file formats</li>
+                <li><i class="fas fa-check-circle"></i> Secure and private processing</li>
+                <li><i class="fas fa-check-circle"></i> Completely free to use</li>
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <div class="info-card">
+                <h3>How It Works</h3>
+                <div class="steps">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <h4>Choose a Tool</h4>
+                            <p>Select from our wide range of utility tools</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <h4>Upload or Enter URL</h4>
+                            <p>Upload files or paste a URL depending on the selected tool</p>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <h4>Process and Download</h4>
+                            <p>Wait for processing to complete and download your file</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

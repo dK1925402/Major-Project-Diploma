@@ -1,0 +1,127 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Image to PDF Converter - ALL-in-One'r</title>
+{% endblock %}
+
+{% block content %}
+<div class="tool-header text-center mb-5">
+    <h1 class="display-5 fw-bold">Image to PDF Converter</h1>
+    <p class="lead">Convert multiple images into a single PDF document</p>
+</div>
+
+<div class="tool-container">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="step-indicator mb-4">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Upload Images</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Convert</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Download</div>
+                </div>
+            </div>
+            
+            <div id="upload-form-container">
+                <form id="image-to-pdf-form" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="image-files" class="form-label">Select Image Files</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="image-files" name="files[]" accept=".jpg,.jpeg,.png,.gif" multiple required>
+                            <div class="invalid-feedback">
+                                Please select at least one image file
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Select multiple image files to convert. Hold Ctrl (or Cmd on Mac) to select multiple files.
+                        </small>
+                    </div>
+                    
+                    <div id="selected-files-container" class="mb-4" style="display: none;">
+                        <label class="form-label">Selected Images</label>
+                        <div id="selected-files-list" class="list-group mb-3">
+                            <!-- Selected files will appear here -->
+                        </div>
+                        <div class="d-flex justify-content-end">
+                            <button type="button" id="clear-files-btn" class="btn btn-outline-danger btn-sm">
+                                <i class="fas fa-trash me-1"></i>Clear All
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" id="convert-btn" disabled>
+                            <i class="fas fa-file-pdf me-2"></i>Convert to PDF
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="progress-container" class="text-center py-5" style="display: none;">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="mb-3">Converting Images to PDF</h4>
+                <p class="text-muted">Please wait while we convert your images to PDF. This may take a few moments depending on the number and size of images.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div id="result-container" class="text-center py-5" style="display: none;">
+                <div class="success-icon mb-3">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+                <h4 class="mb-3">Your PDF is ready!</h4>
+                <a href="#" id="download-link" class="btn btn-success btn-lg" download>
+                    <i class="fas fa-download me-2"></i>Download PDF
+                </a>
+                <p class="mt-4">
+                    <button class="btn btn-outline-primary" id="convert-another-btn">
+                        <i class="fas fa-redo me-2"></i>Convert More Images
+                    </button>
+                </p>
+            </div>
+            
+            <div id="error-container" class="text-center py-5" style="display: none;">
+                <div class="error-icon mb-3">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <h4 class="mb-3">Oops! Something went wrong.</h4>
+                <p id="error-message" class="text-danger mb-4"></p>
+                <button class="btn btn-primary" id="try-again-btn">
+                    <i class="fas fa-redo me-2"></i>Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-card mt-5">
+        <h3>How to Convert Images to PDF</h3>
+        <ol>
+            <li>Click "Select Image Files" and choose multiple images from your device</li>
+            <li>Arrange the images in the desired order by dragging them (if needed)</li>
+            <li>Click the "Convert to PDF" button</li>
+            <li>Wait for the conversion process to complete</li>
+            <li>Click the "Download PDF" button to save your document</li>
+        </ol>
+        
+        <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Supported formats:</strong> JPG, JPEG, PNG, and GIF. For best results, use high-resolution images.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/document.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,159 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>Image Resizer - ALL-in-One'r</title>
+{% endblock %}
+
+{% block content %}
+<div class="tool-header text-center mb-5">
+    <h1 class="display-5 fw-bold">Image Resizer</h1>
+    <p class="lead">Resize your images to specific dimensions</p>
+</div>
+
+<div class="tool-container">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="step-indicator mb-4">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Upload Image</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Set Dimensions</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Download</div>
+                </div>
+            </div>
+            
+            <div id="upload-form-container">
+                <form id="image-resize-form" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="image-file" class="form-label">Select Image File</label>
+                        <div class="input-group mb-3">
+                            <input type="file" class="form-control" id="image-file" name="image" accept=".jpg,.jpeg,.png,.gif" required>
+                            <div class="invalid-feedback">
+                                Please select an image file
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Select a JPG, JPEG, PNG, or GIF image to resize
+                        </small>
+                    </div>
+                    
+                    <div id="image-preview-container" class="mb-4 text-center" style="display: none;">
+                        <h5 class="mb-3">Image Preview</h5>
+                        <div class="image-preview-wrapper">
+                            <img id="image-preview" class="img-fluid img-thumbnail mb-3" alt="Preview">
+                        </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <small class="text-muted">Original dimensions: <span id="original-dimensions"></span></small>
+                            <small class="text-muted">File size: <span id="file-size"></span></small>
+                        </div>
+                    </div>
+                    
+                    <div id="dimensions-container" class="mb-4" style="display: none;">
+                        <h5 class="mb-3">Resize Dimensions</h5>
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="width" class="form-label">Width (px)</label>
+                                <input type="number" class="form-control" id="width" name="width" min="1" max="10000" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid width (1-10000)
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="height" class="form-label">Height (px)</label>
+                                <input type="number" class="form-control" id="height" name="height" min="1" max="10000" required>
+                                <div class="invalid-feedback">
+                                    Please enter a valid height (1-10000)
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="maintain-aspect-ratio" checked>
+                            <label class="form-check-label" for="maintain-aspect-ratio">
+                                Maintain aspect ratio
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" id="resize-btn" disabled>
+                            <i class="fas fa-crop-alt me-2"></i>Resize Image
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="progress-container" class="text-center py-5" style="display: none;">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="mb-3">Resizing Your Image</h4>
+                <p class="text-muted">Please wait while we resize your image. This may take a few moments.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div id="result-container" class="text-center py-5" style="display: none;">
+                <div class="success-icon mb-3">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+                <h4 class="mb-3">Your resized image is ready!</h4>
+                <div class="resized-image-preview-wrapper mb-4">
+                    <img id="resized-image-preview" class="img-fluid img-thumbnail" alt="Resized Image">
+                    <div class="mt-2">
+                        <small class="text-muted">New dimensions: <span id="new-dimensions"></span></small>
+                    </div>
+                </div>
+                <a href="#" id="download-link" class="btn btn-success btn-lg" download>
+                    <i class="fas fa-download me-2"></i>Download Resized Image
+                </a>
+                <p class="mt-4">
+                    <button class="btn btn-outline-primary" id="resize-another-btn">
+                        <i class="fas fa-redo me-2"></i>Resize Another Image
+                    </button>
+                </p>
+            </div>
+            
+            <div id="error-container" class="text-center py-5" style="display: none;">
+                <div class="error-icon mb-3">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <h4 class="mb-3">Oops! Something went wrong.</h4>
+                <p id="error-message" class="text-danger mb-4"></p>
+                <button class="btn btn-primary" id="try-again-btn">
+                    <i class="fas fa-redo me-2"></i>Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-card mt-5">
+        <h3>How to Resize Images</h3>
+        <ol>
+            <li>Click "Select Image File" and choose an image from your device</li>
+            <li>Preview your image and set the desired dimensions</li>
+            <li>Check "Maintain aspect ratio" to keep proportions (recommended)</li>
+            <li>Click the "Resize Image" button</li>
+            <li>Wait for the resizing process to complete</li>
+            <li>Click the "Download Resized Image" button to save your image</li>
+        </ol>
+        
+        <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Supported formats:</strong> JPG, JPEG, PNG, and GIF. Maximum file size: 10MB.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/image.js') }}"></script>
+{% endblock %}

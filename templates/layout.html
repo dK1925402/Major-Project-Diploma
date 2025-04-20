@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ALL-in-One'r Utility Platform</title>
+    
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Google Fonts: Poppins and Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container">
+            <a class="navbar-brand" href="{{ url_for('index') }}">
+                <span class="logo-text">ALL-in-One'r</span>
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="mediaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Media Tools
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('youtube_downloader') }}">YouTube Downloader</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('youtube_to_mp3') }}">YouTube to MP3</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('instagram_downloader') }}">Instagram Downloader</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="documentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Document Tools
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="documentDropdown">
+                            <li><a class="dropdown-item" href="{{ url_for('pdf_merger') }}">PDF Merger</a></li>
+                            <li><a class="dropdown-item" href="{{ url_for('image_to_pdf') }}">Image to PDF</a></li>
+                        </ul>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('image_resizer') }}">Image Resizer</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ url_for('qr_generator') }}">QR Generator</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container py-4">
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer py-4">
+        <div class="container text-center">
+            <p>&copy; 2023 ALL-in-One'r. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-facebook"></i></a>
+                <a href="#" class="text-light mx-2"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Main JS -->
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    
+    {% block scripts %}{% endblock %}
+</body>
+</html>

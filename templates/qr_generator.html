@@ -1,0 +1,297 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>QR Code Generator - ALL-in-One'r</title>
+{% endblock %}
+
+{% block content %}
+<div class="tool-header text-center mb-5">
+    <h1 class="display-5 fw-bold">QR Code Generator</h1>
+    <p class="lead">Create QR codes for URLs, text, contact information, and more</p>
+</div>
+
+<div class="tool-container">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="step-indicator mb-4">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Enter Data</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Generate</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Download</div>
+                </div>
+            </div>
+            
+            <div id="data-form-container">
+                <form id="qr-generator-form" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="data-type" class="form-label">Data Type</label>
+                        <select class="form-select" id="data-type">
+                            <option value="url" selected>URL (Website Link)</option>
+                            <option value="text">Plain Text</option>
+                            <option value="email">Email Address</option>
+                            <option value="phone">Phone Number</option>
+                            <option value="sms">SMS Message</option>
+                            <option value="wifi">WiFi Network</option>
+                            <option value="vcard">Contact Information (vCard)</option>
+                        </select>
+                    </div>
+                    
+                    <!-- URL input - default -->
+                    <div id="url-input" class="data-input mb-4">
+                        <label for="url-data" class="form-label">Website URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-link"></i></span>
+                            <input type="url" class="form-control" id="url-data" placeholder="https://example.com" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid URL
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Enter a complete URL including http:// or https://
+                        </small>
+                    </div>
+                    
+                    <!-- Text input -->
+                    <div id="text-input" class="data-input mb-4" style="display: none;">
+                        <label for="text-data" class="form-label">Text</label>
+                        <textarea class="form-control" id="text-data" rows="3" placeholder="Enter your text here" required></textarea>
+                        <div class="invalid-feedback">
+                            Please enter some text
+                        </div>
+                    </div>
+                    
+                    <!-- Email input -->
+                    <div id="email-input" class="data-input mb-4" style="display: none;">
+                        <label for="email-data" class="form-label">Email Address</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                            <input type="email" class="form-control" id="email-data" placeholder="name@example.com" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid email address
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="email-subject" class="form-label">Subject (Optional)</label>
+                            <input type="text" class="form-control" id="email-subject" placeholder="Email subject">
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="email-body" class="form-label">Body (Optional)</label>
+                            <textarea class="form-control" id="email-body" rows="3" placeholder="Email body"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- Phone input -->
+                    <div id="phone-input" class="data-input mb-4" style="display: none;">
+                        <label for="phone-data" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-phone"></i></span>
+                            <input type="tel" class="form-control" id="phone-data" placeholder="+1234567890" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid phone number
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Include country code for best results (e.g., +1 for US)
+                        </small>
+                    </div>
+                    
+                    <!-- SMS input -->
+                    <div id="sms-input" class="data-input mb-4" style="display: none;">
+                        <label for="sms-number" class="form-label">Phone Number</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-mobile-alt"></i></span>
+                            <input type="tel" class="form-control" id="sms-number" placeholder="+1234567890" required>
+                            <div class="invalid-feedback">
+                                Please enter a valid phone number
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="sms-message" class="form-label">Message (Optional)</label>
+                            <textarea class="form-control" id="sms-message" rows="3" placeholder="SMS message"></textarea>
+                        </div>
+                    </div>
+                    
+                    <!-- WiFi input -->
+                    <div id="wifi-input" class="data-input mb-4" style="display: none;">
+                        <label for="wifi-ssid" class="form-label">Network Name (SSID)</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fas fa-wifi"></i></span>
+                            <input type="text" class="form-control" id="wifi-ssid" placeholder="Your WiFi network name" required>
+                            <div class="invalid-feedback">
+                                Please enter a network name
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="wifi-encryption" class="form-label">Encryption Type</label>
+                            <select class="form-select" id="wifi-encryption">
+                                <option value="WPA">WPA/WPA2/WPA3</option>
+                                <option value="WEP">WEP</option>
+                                <option value="nopass">None (Open Network)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="mt-3" id="wifi-password-container">
+                            <label for="wifi-password" class="form-label">Password</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fas fa-key"></i></span>
+                                <input type="password" class="form-control" id="wifi-password" placeholder="WiFi password">
+                                <button class="btn btn-outline-secondary" type="button" id="toggle-password">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <div class="form-check mt-3">
+                            <input class="form-check-input" type="checkbox" id="wifi-hidden">
+                            <label class="form-check-label" for="wifi-hidden">
+                                Hidden Network
+                            </label>
+                        </div>
+                    </div>
+                    
+                    <!-- vCard input -->
+                    <div id="vcard-input" class="data-input mb-4" style="display: none;">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label for="vcard-firstname" class="form-label">First Name</label>
+                                <input type="text" class="form-control" id="vcard-firstname" placeholder="First name" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="vcard-lastname" class="form-label">Last Name</label>
+                                <input type="text" class="form-control" id="vcard-lastname" placeholder="Last name">
+                            </div>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-company" class="form-label">Company (Optional)</label>
+                            <input type="text" class="form-control" id="vcard-company" placeholder="Company name">
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-title" class="form-label">Job Title (Optional)</label>
+                            <input type="text" class="form-control" id="vcard-title" placeholder="Job title">
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-phone" class="form-label">Phone</label>
+                            <input type="tel" class="form-control" id="vcard-phone" placeholder="Phone number" required>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-email" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="vcard-email" placeholder="Email address" required>
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-website" class="form-label">Website (Optional)</label>
+                            <input type="url" class="form-control" id="vcard-website" placeholder="https://example.com">
+                        </div>
+                        
+                        <div class="mt-3">
+                            <label for="vcard-address" class="form-label">Address (Optional)</label>
+                            <textarea class="form-control" id="vcard-address" rows="2" placeholder="Street address"></textarea>
+                        </div>
+                        
+                        <div class="row g-3 mt-1">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="vcard-city" placeholder="City">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="vcard-state" placeholder="State/Province">
+                            </div>
+                        </div>
+                        
+                        <div class="row g-3 mt-1">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="vcard-zipcode" placeholder="ZIP/Postal Code">
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control" id="vcard-country" placeholder="Country">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" id="generate-btn">
+                            <i class="fas fa-qrcode me-2"></i>Generate QR Code
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="progress-container" class="text-center py-5" style="display: none;">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="mb-3">Generating QR Code</h4>
+                <p class="text-muted">Please wait while we generate your QR code.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div id="result-container" class="text-center py-5" style="display: none;">
+                <div class="success-icon mb-3">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+                <h4 class="mb-3">Your QR code is ready!</h4>
+                <div class="qr-code-preview mb-4">
+                    <img id="qr-code-preview" class="img-fluid img-thumbnail" alt="QR Code">
+                </div>
+                <a href="#" id="download-link" class="btn btn-success btn-lg" download="qrcode.png">
+                    <i class="fas fa-download me-2"></i>Download QR Code
+                </a>
+                <p class="mt-4">
+                    <button class="btn btn-outline-primary" id="generate-another-btn">
+                        <i class="fas fa-redo me-2"></i>Generate Another QR Code
+                    </button>
+                </p>
+            </div>
+            
+            <div id="error-container" class="text-center py-5" style="display: none;">
+                <div class="error-icon mb-3">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <h4 class="mb-3">Oops! Something went wrong.</h4>
+                <p id="error-message" class="text-danger mb-4"></p>
+                <button class="btn btn-primary" id="try-again-btn">
+                    <i class="fas fa-redo me-2"></i>Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-card mt-5">
+        <h3>How to Generate QR Codes</h3>
+        <ol>
+            <li>Select the type of data you want to encode (URL, text, email, etc.)</li>
+            <li>Fill in the required information</li>
+            <li>Click the "Generate QR Code" button</li>
+            <li>Wait for the QR code to be generated</li>
+            <li>Download the QR code image</li>
+        </ol>
+        
+        <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Tip:</strong> Test your QR code after downloading to ensure it works as expected. Most smartphone cameras can scan QR codes natively.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/qrcode.js') }}"></script>
+{% endblock %}

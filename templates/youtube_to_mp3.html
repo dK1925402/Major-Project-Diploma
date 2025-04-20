@@ -1,0 +1,117 @@
+{% extends "layout.html" %}
+
+{% block head %}
+<title>YouTube to MP3 Converter - ALL-in-One'r</title>
+{% endblock %}
+
+{% block content %}
+<div class="tool-header text-center mb-5">
+    <h1 class="display-5 fw-bold">YouTube to MP3 Converter</h1>
+    <p class="lead">Extract audio from YouTube videos in high-quality MP3 format</p>
+</div>
+
+<div class="tool-container">
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="step-indicator mb-4">
+                <div class="step active" id="step1">
+                    <div class="step-number">1</div>
+                    <div class="step-title">Enter URL</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step2">
+                    <div class="step-number">2</div>
+                    <div class="step-title">Convert</div>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step" id="step3">
+                    <div class="step-number">3</div>
+                    <div class="step-title">Download</div>
+                </div>
+            </div>
+            
+            <div id="url-form-container">
+                <form id="mp3-form" class="needs-validation" novalidate>
+                    <div class="mb-4">
+                        <label for="video-url" class="form-label">YouTube Video URL</label>
+                        <div class="input-group">
+                            <span class="input-group-text"><i class="fab fa-youtube"></i></span>
+                            <input type="url" class="form-control" id="video-url" name="video_url" placeholder="https://www.youtube.com/watch?v=..." required>
+                            <div class="invalid-feedback">
+                                Please enter a valid YouTube URL
+                            </div>
+                        </div>
+                        <small class="form-text text-muted">
+                            Enter the full URL of the YouTube video you want to convert to MP3
+                        </small>
+                    </div>
+                    
+                    <div class="d-grid">
+                        <button type="submit" class="btn btn-primary btn-lg" id="convert-btn">
+                            <i class="fas fa-music me-2"></i>Convert to MP3
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div id="progress-container" class="text-center py-5" style="display: none;">
+                <div class="spinner-border text-primary mb-3" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <h4 class="mb-3">Converting to MP3</h4>
+                <p class="text-muted">Please wait while we extract the audio from the video. This may take a few moments depending on the video length.</p>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%"></div>
+                </div>
+            </div>
+            
+            <div id="result-container" class="text-center py-5" style="display: none;">
+                <div class="success-icon mb-3">
+                    <i class="fas fa-check-circle fa-4x text-success"></i>
+                </div>
+                <h4 class="mb-3">Your MP3 file is ready!</h4>
+                <p id="audio-title" class="mb-4"></p>
+                <a href="#" id="download-link" class="btn btn-success btn-lg" download>
+                    <i class="fas fa-download me-2"></i>Download MP3
+                </a>
+                <p class="mt-4">
+                    <button class="btn btn-outline-primary" id="convert-another-btn">
+                        <i class="fas fa-redo me-2"></i>Convert Another Video
+                    </button>
+                </p>
+            </div>
+            
+            <div id="error-container" class="text-center py-5" style="display: none;">
+                <div class="error-icon mb-3">
+                    <i class="fas fa-exclamation-circle fa-4x text-danger"></i>
+                </div>
+                <h4 class="mb-3">Oops! Something went wrong.</h4>
+                <p id="error-message" class="text-danger mb-4"></p>
+                <button class="btn btn-primary" id="try-again-btn">
+                    <i class="fas fa-redo me-2"></i>Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="info-card mt-5">
+        <h3>How to Convert YouTube Videos to MP3</h3>
+        <ol>
+            <li>Copy the URL of the YouTube video you want to convert</li>
+            <li>Paste the URL in the input field above</li>
+            <li>Click the "Convert to MP3" button</li>
+            <li>Wait for the conversion to complete</li>
+            <li>Click the "Download MP3" button to save the audio file</li>
+        </ol>
+        
+        <div class="alert alert-info mt-3">
+            <i class="fas fa-info-circle me-2"></i>
+            <strong>Note:</strong> This tool is for personal use only. Please respect copyright laws and YouTube's Terms of Service.
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/youtube.js') }}"></script>
+{% endblock %}
