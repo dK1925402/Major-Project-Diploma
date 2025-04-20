@@ -33,6 +33,21 @@ document.addEventListener('DOMContentLoaded', function() {
                     const downloadLink = document.getElementById('download-link');
                     downloadLink.href = data.download_url;
                     
+                    // Set title and description if available
+                    if (data.title) {
+                        const titleElement = document.getElementById('video-title');
+                        if (titleElement) {
+                            titleElement.textContent = data.title;
+                        }
+                    }
+                    
+                    if (data.description) {
+                        const descriptionElement = document.getElementById('video-description');
+                        if (descriptionElement) {
+                            descriptionElement.textContent = data.description;
+                        }
+                    }
+                    
                     // Show result container
                     window.showResultContainer();
                 } else {
