@@ -1,4 +1,6 @@
 import os
+import time
+import uuid
 import logging
 import yt_dlp
 import subprocess
@@ -79,16 +81,20 @@ def convert_youtube_to_mp3(video_url, output_path):
     try:
         logger.info(f"Converting YouTube video to MP3: {video_url}")
         
+        # Directory where the file will be saved
+        output_dir = os.path.dirname(output_path)
+        output_filename = os.path.basename(output_path)
+        
         # Configure yt-dlp options
         ydl_opts = {
             'format': 'bestaudio/best',
-            'outtmpl': output_path,
+            'outtmpl': os.path.join(output_dir, '%(title)s.%(ext)s'),
             'quiet': True,
             'no_warnings': True,
             'ignoreerrors': True,
             'nocheckcertificate': True,
             'noplaylist': True,
-            'prefer_ffmpeg': True,
+            'writethumbnail': False,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -102,7 +108,59 @@ def convert_youtube_to_mp3(video_url, output_path):
             if info_dict is None:
                 return {'success': False, 'error': 'Could not extract video information'}
             
+            # Get the title and the final filename
             title = info_dict.get('title', 'YouTube Audio')
+            
+            # Find the downloaded MP3 file (should be in the output directory with .mp3 extension)
+            downloaded_file = None
+            for file in os.listdir(output_dir):
+                if file.endswith(".mp3") and title in file:
+                    downloaded_file = os.path.join(output_dir, file)
+                    break
+            
+            # If we couldn't find the file this way, try other methods
+            if not downloaded_file or not os.path.exists(downloaded_file):
+                for file in os.listdir(output_dir):
+                    if file.endswith(".mp3") and os.path.getmtime(os.path.join(output_dir, file)) > time.time() - 60:  # File created in the last minute
+                        downloaded_file = os.path.join(output_dir, file)
+                        break
+            
+            # Rename the downloaded file to the desired output path
+            if downloaded_file and os.path.exists(downloaded_file):
+                # If target file already exists, remove it
+                if os.path.exists(output_path):
+                    os.remove(output_path)
+                os.rename(downloaded_file, output_path)
+            else:
+                # If we can't find the downloaded file, try a direct approach with ffmpeg
+                temp_file = os.path.join(output_dir, f"temp_{uuid.uuid4()}.mp4")
+                direct_dl_opts = {
+                    'format': 'bestaudio/best',
+                    'outtmpl': temp_file,
+                    'quiet': True,
+                }
+                
+                with yt_dlp.YoutubeDL(direct_dl_opts) as direct_ydl:
+                    direct_ydl.download([video_url])
+                
+                # Convert the temporary file to MP3 using ffmpeg
+                cmd = [
+                    'ffmpeg',
+                    '-i', temp_file,
+                    '-vn',  # No video
+                    '-ar', '44100',  # Audio sample rate
+                    '-ac', '2',  # Stereo
+                    '-b:a', '192k',  # Bitrate
+                    '-f', 'mp3',
+                    output_path
+                ]
+                
+                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                stdout, stderr = process.communicate()
+                
+                # Remove temporary file
+                if os.path.exists(temp_file):
+                    os.remove(temp_file)
         
         # Check if file exists and has size
         if os.path.exists(output_path) and os.path.getsize(output_path) > 0:

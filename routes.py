@@ -41,6 +41,7 @@ def api_youtube_download():
             return jsonify({
                 'success': True,
                 'message': 'Video downloaded successfully',
+                'title': result.get('title', 'YouTube Video'),
                 'download_url': url_for('download_file', filename=filename)
             })
         else:
@@ -73,6 +74,7 @@ def api_youtube_to_mp3():
             return jsonify({
                 'success': True,
                 'message': 'Audio extracted successfully',
+                'title': result.get('title', 'YouTube Audio'),
                 'download_url': url_for('download_file', filename=filename)
             })
         else:
@@ -105,6 +107,8 @@ def api_instagram_download():
             return jsonify({
                 'success': True,
                 'message': 'Instagram reel downloaded successfully',
+                'title': result.get('title', 'Instagram Reel'),
+                'description': result.get('description', ''),
                 'download_url': url_for('download_file', filename=filename)
             })
         else:
