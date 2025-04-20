@@ -1,146 +1,418 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="hero-section text-center">
-    <h1 class="display-4 fw-bold mb-4">ALL-in-One'r Utility Platform</h1>
-    <p class="lead mb-5">Your one-stop solution for media conversion, document manipulation, and more.</p>
-</div>
-
-<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-5">
-    <!-- Media Tools -->
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-video fa-3x"></i>
+<!-- Hero Section with Animated Gradient -->
+<div class="modern-hero">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-7 hero-content">
+                <h1 class="hero-title">The Ultimate <span class="gradient-text">ALL-in-One</span> Utility Platform</h1>
+                <p class="hero-subtitle">Transform, convert, and manipulate your media and documents with powerful tools that just work.</p>
+                <div class="hero-buttons">
+                    <a href="#tools" class="btn btn-primary btn-lg me-3">Explore Tools</a>
+                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
                 </div>
-                <h3 class="card-title">YouTube Downloader</h3>
-                <p class="card-text">Download YouTube videos in different quality formats (360p to 1080p).</p>
-                <a href="{{ url_for('youtube_downloader') }}" class="btn btn-primary">Get Started</a>
+                <div class="hero-stats mt-4">
+                    <div class="stat-item">
+                        <span class="stat-number">7+</span>
+                        <span class="stat-text">Powerful Tools</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">100%</span>
+                        <span class="stat-text">Free & Secure</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">Fast</span>
+                        <span class="stat-text">Processing</span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-5 d-none d-lg-block">
+                <div class="hero-image">
+                    <div class="floating-icon icon-1"><i class="fas fa-video"></i></div>
+                    <div class="floating-icon icon-2"><i class="fas fa-music"></i></div>
+                    <div class="floating-icon icon-3"><i class="fab fa-instagram"></i></div>
+                    <div class="floating-icon icon-4"><i class="fas fa-file-pdf"></i></div>
+                    <div class="floating-icon icon-5"><i class="fas fa-qrcode"></i></div>
+                    <div class="hero-shape"></div>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-music fa-3x"></i>
-                </div>
-                <h3 class="card-title">YouTube to MP3</h3>
-                <p class="card-text">Convert YouTube videos to MP3 audio format with high quality.</p>
-                <a href="{{ url_for('youtube_to_mp3') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fab fa-instagram fa-3x"></i>
-                </div>
-                <h3 class="card-title">Instagram Downloader</h3>
-                <p class="card-text">Download Instagram reels and videos easily.</p>
-                <a href="{{ url_for('instagram_downloader') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Document Tools -->
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-file-pdf fa-3x"></i>
-                </div>
-                <h3 class="card-title">PDF Merger</h3>
-                <p class="card-text">Merge multiple PDF files into a single document.</p>
-                <a href="{{ url_for('pdf_merger') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </div>
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-images fa-3x"></i>
-                </div>
-                <h3 class="card-title">Image to PDF</h3>
-                <p class="card-text">Convert multiple images to a single PDF document.</p>
-                <a href="{{ url_for('image_to_pdf') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- Image Tools -->
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-expand fa-3x"></i>
-                </div>
-                <h3 class="card-title">Image Resizer</h3>
-                <p class="card-text">Resize your images to specific dimensions.</p>
-                <a href="{{ url_for('image_resizer') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
-    </div>
-    
-    <!-- QR Code Tool -->
-    <div class="col">
-        <div class="card h-100 tool-card">
-            <div class="card-body text-center">
-                <div class="tool-icon mb-3">
-                    <i class="fas fa-qrcode fa-3x"></i>
-                </div>
-                <h3 class="card-title">QR Code Generator</h3>
-                <p class="card-text">Generate QR codes for URLs, text, or contact information.</p>
-                <a href="{{ url_for('qr_generator') }}" class="btn btn-primary">Get Started</a>
-            </div>
-        </div>
+    <div class="wave-divider">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+            <path fill="#ffffff" fill-opacity="1" d="M0,224L48,213.3C96,203,192,181,288,181.3C384,181,480,203,576,208C672,213,768,203,864,181.3C960,160,1056,128,1152,122.7C1248,117,1344,139,1392,149.3L1440,160L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path>
+        </svg>
     </div>
 </div>
 
-<div class="features-section py-5">
-    <div class="row align-items-center">
-        <div class="col-md-6">
-            <h2 class="mb-4">Why Choose ALL-in-One'r?</h2>
-            <ul class="feature-list">
-                <li><i class="fas fa-check-circle"></i> Fast and reliable conversion tools</li>
-                <li><i class="fas fa-check-circle"></i> User-friendly interface</li>
-                <li><i class="fas fa-check-circle"></i> No software installation required</li>
-                <li><i class="fas fa-check-circle"></i> Supports multiple file formats</li>
-                <li><i class="fas fa-check-circle"></i> Secure and private processing</li>
-                <li><i class="fas fa-check-circle"></i> Completely free to use</li>
+<!-- Tools Section -->
+<section id="tools" class="tools-section py-5">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h2>Our <span class="gradient-text">Powerful</span> Tools</h2>
+            <p class="lead">Everything you need for media conversion and document manipulation in one place</p>
+        </div>
+        
+        <div class="tools-categories mb-4">
+            <ul class="nav nav-pills justify-content-center">
+                <li class="nav-item">
+                    <a class="nav-link active" data-bs-toggle="pill" href="#all-tools">All Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#media-tools">Media Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#document-tools">Document Tools</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" data-bs-toggle="pill" href="#other-tools">Other Tools</a>
+                </li>
             </ul>
         </div>
-        <div class="col-md-6">
-            <div class="info-card">
-                <h3>How It Works</h3>
-                <div class="steps">
-                    <div class="step">
-                        <div class="step-number">1</div>
-                        <div class="step-content">
-                            <h4>Choose a Tool</h4>
-                            <p>Select from our wide range of utility tools</p>
+        
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="all-tools">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <!-- Media Tools -->
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon youtube-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3>YouTube Downloader</h3>
+                            <p>Download YouTube videos in qualities from 360p to full HD 1080p.</p>
+                            <a href="{{ url_for('youtube_downloader') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="step">
-                        <div class="step-number">2</div>
-                        <div class="step-content">
-                            <h4>Upload or Enter URL</h4>
-                            <p>Upload files or paste a URL depending on the selected tool</p>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon music-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3>YouTube to MP3</h3>
+                            <p>Extract high-quality MP3 audio from any YouTube video.</p>
+                            <a href="{{ url_for('youtube_to_mp3') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
-                    <div class="step">
-                        <div class="step-number">3</div>
-                        <div class="step-content">
-                            <h4>Process and Download</h4>
-                            <p>Wait for processing to complete and download your file</p>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon instagram-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <h3>Instagram Downloader</h3>
+                            <p>Save Instagram reels and videos without watermarks.</p>
+                            <a href="{{ url_for('instagram_downloader') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Document Tools -->
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon pdf-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3>PDF Merger</h3>
+                            <p>Combine multiple PDF files into a single organized document.</p>
+                            <a href="{{ url_for('pdf_merger') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon image-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <h3>Image to PDF</h3>
+                            <p>Convert your image collection to a professional PDF document.</p>
+                            <a href="{{ url_for('image_to_pdf') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <!-- Image & Other Tools -->
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon resize-icon">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                            <h3>Image Resizer</h3>
+                            <p>Resize your images to exact dimensions while preserving quality.</p>
+                            <a href="{{ url_for('image_resizer') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon qr-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <h3>QR Code Generator</h3>
+                            <p>Create QR codes for URLs, text, or contact information.</p>
+                            <a href="{{ url_for('qr_generator') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="media-tools">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon youtube-icon">
+                                <i class="fas fa-video"></i>
+                            </div>
+                            <h3>YouTube Downloader</h3>
+                            <p>Download YouTube videos in qualities from 360p to full HD 1080p.</p>
+                            <a href="{{ url_for('youtube_downloader') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon music-icon">
+                                <i class="fas fa-music"></i>
+                            </div>
+                            <h3>YouTube to MP3</h3>
+                            <p>Extract high-quality MP3 audio from any YouTube video.</p>
+                            <a href="{{ url_for('youtube_to_mp3') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon instagram-icon">
+                                <i class="fab fa-instagram"></i>
+                            </div>
+                            <h3>Instagram Downloader</h3>
+                            <p>Save Instagram reels and videos without watermarks.</p>
+                            <a href="{{ url_for('instagram_downloader') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="document-tools">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon pdf-icon">
+                                <i class="fas fa-file-pdf"></i>
+                            </div>
+                            <h3>PDF Merger</h3>
+                            <p>Combine multiple PDF files into a single organized document.</p>
+                            <a href="{{ url_for('pdf_merger') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon image-icon">
+                                <i class="fas fa-images"></i>
+                            </div>
+                            <h3>Image to PDF</h3>
+                            <p>Convert your image collection to a professional PDF document.</p>
+                            <a href="{{ url_for('image_to_pdf') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="tab-pane fade" id="other-tools">
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon resize-icon">
+                                <i class="fas fa-expand"></i>
+                            </div>
+                            <h3>Image Resizer</h3>
+                            <p>Resize your images to exact dimensions while preserving quality.</p>
+                            <a href="{{ url_for('image_resizer') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="modern-card">
+                            <div class="card-icon qr-icon">
+                                <i class="fas fa-qrcode"></i>
+                            </div>
+                            <h3>QR Code Generator</h3>
+                            <p>Create QR codes for URLs, text, or contact information.</p>
+                            <a href="{{ url_for('qr_generator') }}" class="card-link">
+                                <span>Get Started</span>
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</section>
+
+<!-- How It Works Section -->
+<section id="how-it-works" class="how-it-works py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-5">
+                <div class="section-header">
+                    <h2>How <span class="gradient-text">It Works</span></h2>
+                    <p class="lead">Simple, fast, and efficient - our platform is designed with your convenience in mind</p>
+                </div>
+                
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-number">01</div>
+                        <div class="timeline-content">
+                            <h4>Choose Your Tool</h4>
+                            <p>Select from our collection of powerful conversion and manipulation tools</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">02</div>
+                        <div class="timeline-content">
+                            <h4>Upload or Input URL</h4>
+                            <p>Upload your files or paste a URL depending on the selected tool</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">03</div>
+                        <div class="timeline-content">
+                            <h4>Process Your Request</h4>
+                            <p>Our system processes your files or media with lightning-fast speed</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-number">04</div>
+                        <div class="timeline-content">
+                            <h4>Download Result</h4>
+                            <p>Instantly download your processed file in high quality</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-7">
+                <div class="features-showcase">
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-bolt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Lightning Fast</h4>
+                            <p>Process files and media with remarkable speed</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Secure & Private</h4>
+                            <p>Your files are processed securely and never stored</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-cloud-download-alt"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>No Installation</h4>
+                            <p>No software to download or install - works in your browser</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-desktop"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>Device Friendly</h4>
+                            <p>Works smoothly on desktop, tablet, and mobile</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>High Quality</h4>
+                            <p>Maintain top quality in all conversions and operations</p>
+                        </div>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">
+                            <i class="fas fa-dollar-sign"></i>
+                        </div>
+                        <div class="feature-content">
+                            <h4>100% Free</h4>
+                            <p>All tools are completely free to use without limits</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Section -->
+<section class="cta-section py-5">
+    <div class="container">
+        <div class="cta-box text-center">
+            <h2>Ready to <span class="gradient-text">Transform</span> Your Files?</h2>
+            <p class="lead mb-4">Join thousands of users who trust our platform for their conversion needs</p>
+            <a href="#tools" class="btn btn-primary btn-lg px-5">Get Started Now</a>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block scripts %}
+<script>
+    // Add active class to nav item based on scroll position
+    document.addEventListener('DOMContentLoaded', function() {
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId !== '#') {
+                    document.querySelector(targetId).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    });
+</script>
 {% endblock %}
