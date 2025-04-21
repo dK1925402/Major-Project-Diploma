@@ -1,26 +1,24 @@
 import os
-import time
-import uuid
 import logging
 import yt_dlp
-import subprocess
 
 logger = logging.getLogger(__name__)
 
-def download_youtube_video(video_url, output_path, quality='720p'):
+def download_youtube_video(video_url, output_path, quality='720p', browser='chrome'):
     """
-    Download a YouTube video with the specified quality using yt-dlp.
+    Download a YouTube video with the specified quality using yt-dlp and browser cookies.
     
     Args:
         video_url (str): The URL of the YouTube video
         output_path (str): The path to save the downloaded video
         quality (str): The quality of the video (e.g., '360p', '720p', '1080p')
+        browser (str): The browser to fetch cookies from (e.g., 'chrome', 'firefox', 'edge')
     
     Returns:
         dict: A result dictionary containing success status and error message if any
     """
     try:
-        logger.info(f"Downloading YouTube video: {video_url} at {quality} quality")
+        logger.info(f"Downloading YouTube video: {video_url} at {quality} quality using cookies from {browser}")
         
         # Map quality string to format
         quality_formats = {
@@ -39,10 +37,7 @@ def download_youtube_video(video_url, output_path, quality='720p'):
             'outtmpl': output_path,
             'quiet': True,
             'no_warnings': True,
-            'ignoreerrors': True,
-            'nocheckcertificate': True,
-            'noplaylist': True,
-            'prefer_ffmpeg': True,
+            'cookiesfrombrowser': browser,  # Use cookies from the specified browser
             'postprocessors': [{
                 'key': 'FFmpegVideoConvertor',
                 'preferedformat': 'mp4',
@@ -67,23 +62,23 @@ def download_youtube_video(video_url, output_path, quality='720p'):
         logger.error(f"Error downloading YouTube video: {str(e)}")
         return {'success': False, 'error': str(e)}
 
-def convert_youtube_to_mp3(video_url, output_path):
+def convert_youtube_to_mp3(video_url, output_path, browser='chrome'):
     """
-    Download a YouTube video and convert it to MP3 using yt-dlp.
+    Download a YouTube video and convert it to MP3 using yt-dlp and browser cookies.
     
     Args:
         video_url (str): The URL of the YouTube video
         output_path (str): The path to save the MP3 file
+        browser (str): The browser to fetch cookies from (e.g., 'chrome', 'firefox', 'edge')
     
     Returns:
         dict: A result dictionary containing success status and error message if any
     """
     try:
-        logger.info(f"Converting YouTube video to MP3: {video_url}")
+        logger.info(f"Converting YouTube video to MP3: {video_url} using cookies from {browser}")
         
         # Directory where the file will be saved
         output_dir = os.path.dirname(output_path)
-        output_filename = os.path.basename(output_path)
         
         # Configure yt-dlp options
         ydl_opts = {
@@ -91,10 +86,7 @@ def convert_youtube_to_mp3(video_url, output_path):
             'outtmpl': os.path.join(output_dir, '%(title)s.%(ext)s'),
             'quiet': True,
             'no_warnings': True,
-            'ignoreerrors': True,
-            'nocheckcertificate': True,
-            'noplaylist': True,
-            'writethumbnail': False,
+            'cookiesfrombrowser': browser,  # Use cookies from the specified browser
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
@@ -108,59 +100,12 @@ def convert_youtube_to_mp3(video_url, output_path):
             if info_dict is None:
                 return {'success': False, 'error': 'Could not extract video information'}
             
-            # Get the title and the final filename
             title = info_dict.get('title', 'YouTube Audio')
+            final_path = os.path.join(output_dir, f"{title}.mp3")
             
-            # Find the downloaded MP3 file (should be in the output directory with .mp3 extension)
-            downloaded_file = None
-            for file in os.listdir(output_dir):
-                if file.endswith(".mp3") and title in file:
-                    downloaded_file = os.path.join(output_dir, file)
-                    break
-            
-            # If we couldn't find the file this way, try other methods
-            if not downloaded_file or not os.path.exists(downloaded_file):
-                for file in os.listdir(output_dir):
-                    if file.endswith(".mp3") and os.path.getmtime(os.path.join(output_dir, file)) > time.time() - 60:  # File created in the last minute
-                        downloaded_file = os.path.join(output_dir, file)
-                        break
-            
-            # Rename the downloaded file to the desired output path
-            if downloaded_file and os.path.exists(downloaded_file):
-                # If target file already exists, remove it
-                if os.path.exists(output_path):
-                    os.remove(output_path)
-                os.rename(downloaded_file, output_path)
-            else:
-                # If we can't find the downloaded file, try a direct approach with ffmpeg
-                temp_file = os.path.join(output_dir, f"temp_{uuid.uuid4()}.mp4")
-                direct_dl_opts = {
-                    'format': 'bestaudio/best',
-                    'outtmpl': temp_file,
-                    'quiet': True,
-                }
-                
-                with yt_dlp.YoutubeDL(direct_dl_opts) as direct_ydl:
-                    direct_ydl.download([video_url])
-                
-                # Convert the temporary file to MP3 using ffmpeg
-                cmd = [
-                    'ffmpeg',
-                    '-i', temp_file,
-                    '-vn',  # No video
-                    '-ar', '44100',  # Audio sample rate
-                    '-ac', '2',  # Stereo
-                    '-b:a', '192k',  # Bitrate
-                    '-f', 'mp3',
-                    output_path
-                ]
-                
-                process = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-                stdout, stderr = process.communicate()
-                
-                # Remove temporary file
-                if os.path.exists(temp_file):
-                    os.remove(temp_file)
+            # Rename file to match the output path
+            if os.path.exists(final_path):
+                os.rename(final_path, output_path)
         
         # Check if file exists and has size
         if os.path.exists(output_path) and os.path.getsize(output_path) > 0:
