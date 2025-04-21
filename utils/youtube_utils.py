@@ -7,7 +7,7 @@ import subprocess
 
 logger = logging.getLogger(__name__)
 
-def download_youtube_video(video_url, output_path, quality='720p', browser='chrome'):
+def download_youtube_video(video_url, output_path, quality='720p'):
     """
     Download a YouTube video with the specified quality using yt-dlp.
     
@@ -15,7 +15,6 @@ def download_youtube_video(video_url, output_path, quality='720p', browser='chro
         video_url (str): The URL of the YouTube video
         output_path (str): The path to save the downloaded video
         quality (str): The quality of the video (e.g., '360p', '720p', '1080p')
-        browser (str): The browser to fetch cookies from (default: 'chrome')
     
     Returns:
         dict: A result dictionary containing success status and error message if any
@@ -43,12 +42,12 @@ def download_youtube_video(video_url, output_path, quality='720p', browser='chro
             'ignoreerrors': True,
             'nocheckcertificate': True,
             'noplaylist': True,
-            'cookiesfrombrowser': browser,  # Fetch cookies from the specified browser
             'prefer_ffmpeg': True,
             'postprocessors': [{
                 'key': 'FFmpegVideoConvertor',
                 'preferedformat': 'mp4',
             }],
+            'cookiesfrombrowser': ('chrome',),
         }
         
         # Download the video
@@ -69,14 +68,13 @@ def download_youtube_video(video_url, output_path, quality='720p', browser='chro
         logger.error(f"Error downloading YouTube video: {str(e)}")
         return {'success': False, 'error': str(e)}
 
-def convert_youtube_to_mp3(video_url, output_path, browser='chrome'):
+def convert_youtube_to_mp3(video_url, output_path):
     """
     Download a YouTube video and convert it to MP3 using yt-dlp.
     
     Args:
         video_url (str): The URL of the YouTube video
         output_path (str): The path to save the MP3 file
-        browser (str): The browser to fetch cookies from (default: 'chrome')
     
     Returns:
         dict: A result dictionary containing success status and error message if any
@@ -97,12 +95,13 @@ def convert_youtube_to_mp3(video_url, output_path, browser='chrome'):
             'ignoreerrors': True,
             'nocheckcertificate': True,
             'noplaylist': True,
-            'cookiesfrombrowser': browser,  # Fetch cookies from the specified browser
+            'writethumbnail': False,
             'postprocessors': [{
                 'key': 'FFmpegExtractAudio',
                 'preferredcodec': 'mp3',
                 'preferredquality': '192',
             }],
+            'cookiesfrombrowser': ('chrome',),
         }
         
         # Download and convert to MP3
