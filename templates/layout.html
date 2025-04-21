@@ -11,7 +11,7 @@
     <!-- Google Fonts: Poppins and Inter -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- FontAwesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
@@ -19,72 +19,189 @@
     <!-- Custom CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
     
+    <!-- Animation CSS -->
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    
     {% block head %}{% endblock %}
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark">
-        <div class="container">
-            <a class="navbar-brand" href="{{ url_for('index') }}">
-                <span class="logo-text">ALL-in-One'r</span>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('index') }}">Home</a>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="mediaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Media Tools
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="mediaDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('youtube_downloader') }}">YouTube Downloader</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('youtube_to_mp3') }}">YouTube to MP3</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('instagram_downloader') }}">Instagram Downloader</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="documentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                            Document Tools
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="documentDropdown">
-                            <li><a class="dropdown-item" href="{{ url_for('pdf_merger') }}">PDF Merger</a></li>
-                            <li><a class="dropdown-item" href="{{ url_for('image_to_pdf') }}">Image to PDF</a></li>
-                        </ul>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('image_resizer') }}">Image Resizer</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="{{ url_for('qr_generator') }}">QR Generator</a>
-                    </li>
-                </ul>
+    <header class="main-header">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="{{ url_for('index') }}">
+                    <div class="logo-wrapper">
+                        <i class="fas fa-tools logo-icon"></i>
+                        <span class="logo-text">ALL-in-One'r</span>
+                    </div>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ url_for('index') }}">
+                                <i class="fas fa-home nav-icon"></i>
+                                <span>Home</span>
+                            </a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="mediaDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-photo-video nav-icon"></i>
+                                <span>Media Tools</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="mediaDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('youtube_downloader') }}">
+                                        <i class="fab fa-youtube menu-icon youtube-color"></i>
+                                        YouTube Downloader
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('youtube_to_mp3') }}">
+                                        <i class="fas fa-music menu-icon music-color"></i>
+                                        YouTube to MP3
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('instagram_downloader') }}">
+                                        <i class="fab fa-instagram menu-icon instagram-color"></i>
+                                        Instagram Downloader
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="documentDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-file-alt nav-icon"></i>
+                                <span>Document Tools</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="documentDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('pdf_merger') }}">
+                                        <i class="fas fa-file-pdf menu-icon pdf-color"></i>
+                                        PDF Merger
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('image_to_pdf') }}">
+                                        <i class="fas fa-images menu-icon image-color"></i>
+                                        Image to PDF
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="otherToolsDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fas fa-tools nav-icon"></i>
+                                <span>Other Tools</span>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="otherToolsDropdown">
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('image_resizer') }}">
+                                        <i class="fas fa-expand menu-icon resize-color"></i>
+                                        Image Resizer
+                                    </a>
+                                </li>
+                                <li>
+                                    <a class="dropdown-item" href="{{ url_for('qr_generator') }}">
+                                        <i class="fas fa-qrcode menu-icon qr-color"></i>
+                                        QR Generator
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            <a class="btn btn-primary nav-button" href="#tools">
+                                Explore Tools <i class="fas fa-arrow-right ms-2"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
     <!-- Main Content -->
-    <main class="container py-4">
+    <main>
         {% block content %}{% endblock %}
     </main>
 
     <!-- Footer -->
-    <footer class="footer py-4">
-        <div class="container text-center">
-            <p>&copy; 2023 ALL-in-One'r. All rights reserved.</p>
-            <div class="footer-links">
-                <a href="#" class="text-light mx-2"><i class="fab fa-twitter"></i></a>
-                <a href="#" class="text-light mx-2"><i class="fab fa-facebook"></i></a>
-                <a href="#" class="text-light mx-2"><i class="fab fa-github"></i></a>
+    <footer class="footer py-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4 mb-lg-0">
+                    <div class="footer-brand">
+                        <i class="fas fa-tools logo-icon"></i>
+                        <span class="logo-text">ALL-in-One'r</span>
+                    </div>
+                    <p class="mt-3 text-light-50">Your one-stop solution for all file conversion and utility needs.</p>
+                    <div class="footer-social mt-4">
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-8">
+                    <div class="row">
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <h5 class="footer-heading">Media Tools</h5>
+                            <ul class="footer-links">
+                                <li><a href="{{ url_for('youtube_downloader') }}">YouTube Downloader</a></li>
+                                <li><a href="{{ url_for('youtube_to_mp3') }}">YouTube to MP3</a></li>
+                                <li><a href="{{ url_for('instagram_downloader') }}">Instagram Downloader</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4 mb-4 mb-md-0">
+                            <h5 class="footer-heading">Document Tools</h5>
+                            <ul class="footer-links">
+                                <li><a href="{{ url_for('pdf_merger') }}">PDF Merger</a></li>
+                                <li><a href="{{ url_for('image_to_pdf') }}">Image to PDF</a></li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5 class="footer-heading">Other Tools</h5>
+                            <ul class="footer-links">
+                                <li><a href="{{ url_for('image_resizer') }}">Image Resizer</a></li>
+                                <li><a href="{{ url_for('qr_generator') }}">QR Generator</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom mt-5 pt-4">
+                <div class="row align-items-center">
+                    <div class="col-md-6 mb-3 mb-md-0">
+                        <p class="mb-0">&copy; 2025 ALL-in-One'r. All rights reserved.</p>
+                    </div>
+                    <div class="col-md-6 text-md-end">
+                        <ul class="footer-bottom-links">
+                            <li><a href="#">Privacy Policy</a></li>
+                            <li><a href="#">Terms of Service</a></li>
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
     <!-- Bootstrap JS with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- AOS Animation Library -->
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            AOS.init({
+                duration: 800,
+                easing: 'ease-in-out',
+                once: true
+            });
+        });
+    </script>
     
     <!-- Main JS -->
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>

@@ -1,18 +1,26 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<!-- Hero Section with Animated Gradient -->
+<!-- Hero Section with Animated Gradient and Effects -->
 <div class="modern-hero">
+    <!-- Background Elements -->
+    <div class="hero-blur"></div>
+    <div class="hero-blur-2"></div>
+    
     <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-7 hero-content">
-                <h1 class="hero-title">The Ultimate <span class="gradient-text">ALL-in-One</span> Utility Platform</h1>
-                <p class="hero-subtitle">Transform, convert, and manipulate your media and documents with powerful tools that just work.</p>
+            <div class="col-lg-7 hero-content" data-aos="fade-up">
+                <h1 class="hero-title">Power<span class="gradient-text">Tools</span> for Your Digital Life</h1>
+                <p class="hero-subtitle">Transform, convert, and manipulate your media and documents with our all-in-one platform designed to make complex tasks simple.</p>
                 <div class="hero-buttons">
-                    <a href="#tools" class="btn btn-primary btn-lg me-3">Explore Tools</a>
-                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">How It Works</a>
+                    <a href="#tools" class="btn btn-primary btn-lg me-3">
+                        <i class="fas fa-rocket me-2"></i> Explore Tools
+                    </a>
+                    <a href="#how-it-works" class="btn btn-outline-light btn-lg">
+                        <i class="fas fa-info-circle me-2"></i> How It Works
+                    </a>
                 </div>
-                <div class="hero-stats mt-4">
+                <div class="hero-stats">
                     <div class="stat-item">
                         <span class="stat-number">7+</span>
                         <span class="stat-text">Powerful Tools</span>
@@ -22,18 +30,28 @@
                         <span class="stat-text">Free & Secure</span>
                     </div>
                     <div class="stat-item">
-                        <span class="stat-number">Fast</span>
-                        <span class="stat-text">Processing</span>
+                        <span class="stat-number">24/7</span>
+                        <span class="stat-text">Availability</span>
                     </div>
                 </div>
             </div>
             <div class="col-lg-5 d-none d-lg-block">
                 <div class="hero-image">
-                    <div class="floating-icon icon-1"><i class="fas fa-video"></i></div>
-                    <div class="floating-icon icon-2"><i class="fas fa-music"></i></div>
-                    <div class="floating-icon icon-3"><i class="fab fa-instagram"></i></div>
-                    <div class="floating-icon icon-4"><i class="fas fa-file-pdf"></i></div>
-                    <div class="floating-icon icon-5"><i class="fas fa-qrcode"></i></div>
+                    <div class="floating-icon icon-1">
+                        <i class="fas fa-video"></i>
+                    </div>
+                    <div class="floating-icon icon-2">
+                        <i class="fas fa-music"></i>
+                    </div>
+                    <div class="floating-icon icon-3">
+                        <i class="fab fa-instagram"></i>
+                    </div>
+                    <div class="floating-icon icon-4">
+                        <i class="fas fa-file-pdf"></i>
+                    </div>
+                    <div class="floating-icon icon-5">
+                        <i class="fas fa-qrcode"></i>
+                    </div>
                     <div class="hero-shape"></div>
                 </div>
             </div>
